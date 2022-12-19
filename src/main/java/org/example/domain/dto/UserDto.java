@@ -1,13 +1,19 @@
 package org.example.domain.dto;
 
+import org.example.domain.entity.Book;
+
+import java.util.Set;
+
 public class UserDto {
     private Long id;
     private String name;
     private String surname;
     private String email;
-    private String  password; // TODO bunu gelecekde gosterme
+    private String password; // TODO bunu gelecekde gosterme
     private String pin; // TODO gosterme
     private Integer age;
+    private Boolean enable;
+    private Set<Book> books;
 
     public Long getId() {
         return id;
@@ -65,9 +71,25 @@ public class UserDto {
         this.age = age;
     }
 
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public String toString() {
-        return String.format("UserDto{id=%d, name='%s', surname='%s', email='%s', password='%s', pin='%s', age=%d}",
-                id, name, surname, email, password, pin, age);
+        return String.format("UserDto{id=%d, name='%s', surname='%s', email='%s', password='%s', pin='%s', age=%d, " +
+                "enable=%s, books=%s}", id, name, surname, email, password, pin, age, enable, books);
     }
 }

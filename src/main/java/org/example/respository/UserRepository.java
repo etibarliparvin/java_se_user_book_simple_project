@@ -8,6 +8,8 @@ public interface UserRepository {
 
     void saveUser(User user);
 
+    void saveUser(List<User> users);
+
     User findUserById(Long id);
 
     User findUserByPin(String pin);

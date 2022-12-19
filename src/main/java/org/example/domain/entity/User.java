@@ -1,11 +1,16 @@
 package org.example.domain.entity;
 
-import org.example.exception.AgeException;
+import org.example.util.FileUtil;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class User implements Serializable {
+    private static Long count = (long) (FileUtil.readUserFromFile() != null ? FileUtil.readUserFromFile().size() : 0);
+
     private Long id;
     private String name;
     private String surname;
@@ -14,7 +19,11 @@ public class User implements Serializable {
     private String pin;
     private Integer age;
 
+    private Boolean enable = Boolean.TRUE;
+    private Set<Book> books = new HashSet<>();
+
     public User() {
+        this.id = ++count;
     }
 
     public User(String name, String surname, String email, byte[] password, String pin, Integer age) {
@@ -24,6 +33,7 @@ public class User implements Serializable {
         this.password = password;
         this.pin = pin;
         this.age = age;
+        this.id = ++count;
     }
 
     public Long getId() {
@@ -82,6 +92,26 @@ public class User implements Serializable {
         this.age = age;
     }
 
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
+    public void addBook(Book book) {
+        this.books.add(book);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,7 +127,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("User{id=%d, name='%s', surname='%s', email='%s', password='%s', pin='%s', age=%d}",
-                id, name, surname, email, password, pin, age);
+        return String.format("User{id=%d, name='%s', surname='%s', email='%s', password=%s, pin='%s', age=%d, " +
+                "enable=%s, books=%s}", id, name, surname, email, Arrays.toString(password), pin, age, enable, books);
     }
 }
